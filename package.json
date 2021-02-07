@@ -1,0 +1,34 @@
+{
+  "name": "webclient",
+  "version": "1.0.0",
+  "description": "webclient with redux async logic & data fetching",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve --open --mode development",
+    "lint": "eslint .",
+    "service": "nodemon service/server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "eslint": "^7.19.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "css-loader": "^5.0.1",
+    "style-loader": "^2.0.0",
+    "webpack": "^5.17.0",
+    "webpack-cli": "^4.4.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.5.0",
+    "nodemon": "^2.0.7",
+    "pg": "^8.5.1",
+    "pg-cursor": "^2.5.2",
+    "pg-hstore": "^2.3.3",
+    "rxjs": "^6.6.3",
+    "typeorm": "^0.2.30"
+  }
+}
