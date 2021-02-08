@@ -1,11 +1,23 @@
-const { loadWorkerAction } = require('./store');
-const { fetchWorkerApi } = require('../api/all-service');
+const { loadWorkerAction, addWorkerAction, removeWorkerAction } = require('./store');
+const { fetchWorkerApi, addWorkerApi, deleteWorkerApi } = require('../api/all-service');
 
 const loadWorkerAsync = async (dispatch, getState) => {
-    const tasksAsync = await fetchWorkerApi();
-    dispatch(loadWorkerAction(tasksAsync));
+    const workerAsync = await fetchWorkerApi();
+    dispatch(loadWorkerAction(workerAsync));
+};
+
+const addWorkerAsync = (worker) => async (dispatch, getState) => {
+    const workerData = await addWorkerApi(worker);
+    dispatch(addWorkerAction(workerData));
+};
+
+const deleteWorkerAsync = (id) => async (dispatch, getState) => {
+    await deleteWorkerApi(id);
+    dispatch(removeWorkerAction(id));
 };
 
 module.exports = {
-    loadWorkerAsync
+    loadWorkerAsync,
+    addWorkerAsync,
+    deleteWorkerAsync
 };

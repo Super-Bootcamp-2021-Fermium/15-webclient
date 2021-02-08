@@ -9,13 +9,17 @@ async function writeWorker(data) {
     !data.photo ||
     !data.telepon
   ) {
-    return 'data pekerja tidak lengkap';
+    const r = {
+      status: 'failed',
+      message: 'data pekerja tidak lengkap',
+    };
+    return JSON.stringify(r);
   }
 
   const worker = getConnection().getRepository('Worker');
   const create = worker.create(data);
   await worker.save(create);
-  return 'data pekerja berhasil disimpan.';
+  return JSON.stringify(create);
 }
 
 async function readWorker() {

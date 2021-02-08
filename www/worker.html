@@ -11,33 +11,57 @@
     <div class="container">
         <h1>Data Pekerja</h1>
 
-        <button class="btn">
+        <button id="add" class="btn">
             Tambah Baru
         </button>
 
-        <table>
-            <tr>
-                <th class="title">Nama</th>
-                <th class="title">Alamat</th>
-                <th class="title">Email</th>
-                <th class="title">Telepon</th>
-                <th class="title">Action</th>
-            </tr>
-            <tr>
-                <td>Alfreds Futterkiste</td>
-                <td>Maria Anders</td>
-                <td>Germany</td>
-                <td>Germany</td>
-                <td class="act">
-                    <button class="btnDel" href="#">
-                        Hapus
-                    </button>
-                    <button class="btnDtl" href="#">
-                        Detail
-                    </button>
-                </td>
+        <table id="table">
+            <tr id="title">
+                <th>Nama</th>
+                <th>Alamat</th>
+                <th>Email</th>
+                <th>Telepon</th>
+                <th>Action</th>
             </tr>
         </table>
+    </div>
+
+    <div id="myModal" class="modal">
+
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3>Input data pekerja baru</h3>
+            <form id="form-add" action="" method="POST">
+                <p class="input-data">
+                    <label for="name">Nama</label>
+                    <input name="name" type="text" />
+                </p>
+                <p class="input-data">
+                    <label for="alamat">Alamat</label>
+                    <input name="alamat" type="text" />
+                </p>
+                <p class="input-data">
+                    <label for="email">Email</label>
+                    <input name="email" type="text" />
+                </p>
+                <p class="input-data">
+                    <label for="telp">Telepon</label>
+                    <input name="telp" type="text" />
+                </p>
+                <p class="input-data">
+                    <label for="bio">Biografi</label>
+                    <textarea name="bio" rows="4"></textarea>
+                </p>
+                <p class="input-data">
+                    <label for="photo">Foto Profil</label>
+                    <input name="photo" type="file" accept="image/x-png,image/jpeg" />
+                </p>
+                <p>
+                    <button class="btnDtl" type="submit">Kirim</button>
+                </p>
+            </form>
+        </div>
+
     </div>
 </body>
 
