@@ -22,11 +22,10 @@ const getTasksAsync = () => async(dispatch, getState) => {
     dispatch(loadTasksAction(taskData))
 }  
  
-
-const cancelTaskAsync = (id) => async(dispatch, getState) => {
-    const taskId = await undoneTaskApi(id)
-    dispatch(cancelAction(taskId))
-}  
+const cancelTaskAsync = (id) => async (dispatch, getState) => {
+    const taskId = await undoneTaskApi(id)    
+    await dispatch(cancelAction(taskId))
+}
 
 const doneTaskAsync = (id) => async(dispatch, getState) => {
     const taskId = await doneTaskApi(id)

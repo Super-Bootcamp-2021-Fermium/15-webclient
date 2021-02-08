@@ -61,7 +61,7 @@ const server = createServer((req, res) => {
         respond();
       }
       break;
-    case /^\/pekerja\/delete\/\w+/.test(uri.pathname):
+    case /^\/pekerjaan\/delete\/\w+/.test(uri.pathname):
       if (method === 'DELETE') {
         deleteWorkerService(req, res);
       } else {
@@ -77,16 +77,16 @@ const server = createServer((req, res) => {
         respond();
       }
       break;
-    case uri.pathname === '/pekerjaan/finish':
-      if (method === 'POST') {
+    case /^\/pekerjaan\/finish\/\w+/.test(uri.pathname):
+      if (method === 'PUT') {
         finishTaskService(req, res);
       } else {
         message = 'Method tidak tersedia';
         respond();
       }
       break;
-    case uri.pathname === '/pekerjaan/cancel':
-      if (method === 'POST') {
+    case /^\/pekerjaan\/cancel\/\w+/.test(uri.pathname):
+      if (method === 'PUT') {
         cancelTaskService(req, res);
       } else {
         message = 'Method tidak tersedia';

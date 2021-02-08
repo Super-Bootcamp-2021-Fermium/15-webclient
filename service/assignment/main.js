@@ -20,11 +20,11 @@ async function initDB() {
   try {
     console.log('connect to database');
     await connect([WorkerSchema, TaskSchema], {
-      type: 'mysql',
+      type: 'postgres',
       host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: '',
+      port: 5432,
+      username: 'postgres',
+      password: 'stratosfer10110100',
       database: 'sanbercode',
     });
     console.log('database connected');

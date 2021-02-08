@@ -14,6 +14,7 @@ const {
   saveTaskDone,
   saveTaskCancelled,
 } = require('../performance/performance');
+const url = require('url')
 
 async function addTaskService(req, res) {
   const busboy = new Busboy({ headers: req.headers });
@@ -74,67 +75,36 @@ async function addTaskService(req, res) {
   req.pipe(busboy);
 }
 
-async function finishTaskService(req, res) {
-  const busboy = new Busboy({ headers: req.headers });
-  let id;
-
-  function abort() {
-    req.unpipe(busboy);
-    if (!req.aborted) {
-      res.statusCode = 413;
-      res.end();
-    }
-  }
-
-  busboy.on('field', async (fieldname, val) => {
-    id = val;
-  });
-
-  busboy.on('finish', async () => {
-    await updateTask({ done: true }, id);
-    const done = JSON.parse(await readTaskDone());
-    saveTaskDone();
-    streamer('task.done', done.length.toString());
-    res.statusCode = 200;
-    res.write(`pekerjaan dengan id ${id} berhasil diselesaikan`);
+async function finishTaskService(req, res){
+  const uri = url.parse(req.url, true);
+  const id = uri.pathname.replace('/pekerjaan/finish/', '');
+  if (!id) {
+    res.statusCode = 400;
+    res.write('request tidak sesuai');
     res.end();
-  });
-
-  req.on('aborted', abort);
-  busboy.on('error', abort);
-
-  req.pipe(busboy);
+  }
+  await updateTask(data = {done: false }, id);
+  const response = await readTask()
+  res.setHeader('Content-Type', 'application/json');
+  res.write('done');
+  res.statusCode = 200;
+  res.end();
 }
 
 async function cancelTaskService(req, res) {
-  const busboy = new Busboy({ headers: req.headers });
-  let id;
-
-  function abort() {
-    req.unpipe(busboy);
-    if (!req.aborted) {
-      res.statusCode = 413;
-      res.end();
-    }
-  }
-
-  busboy.on('field', async (fieldname, val) => {
-    id = val;
-  });
-
-  busboy.on('finish', async () => {
-    await updateTask({ cancel: true }, id);
-    const cancel = JSON.parse(await readTaskCancelled());
-    saveTaskCancelled();
-    streamer('task.cancelled', cancel.length.toString());
-    res.statusCode = 200;
-    res.write(`pekerjaan ${id} telah dibatalkan`);
+  const uri = url.parse(req.url, true);
+  const id = uri.pathname.replace('/pekerjaan/cancel/', '');
+  if (!id) {
+    res.statusCode = 400;
+    res.write('request tidak sesuai');
     res.end();
-  });
-
-  req.on('aborted', abort);
-  busboy.on('error', abort);
-  req.pipe(busboy);
+  }
+  await updateTask(data = {cancel: false }, id);
+  const response = await readTask()
+  res.setHeader('Content-Type', 'application/json');
+  res.write('canceled');
+  res.statusCode = 200;
+  res.end();
 }
 
 async function readTaskService(req, res) {

@@ -35,7 +35,7 @@ async function readTaskCancelled() {
   return JSON.stringify(jobs);
 }
 
-async function updateTask(data, id) {
+async function updateTask(data,id) {
   await getConnection()
     .createQueryBuilder()
     .update('Task')

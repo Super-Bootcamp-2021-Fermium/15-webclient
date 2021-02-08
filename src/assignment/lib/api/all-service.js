@@ -11,11 +11,11 @@ async function addTaskApi(task) {
 }
 
 async function doneTaskApi(id) {
-  return await client.post(`${base_url}pekerjaan/finish`, { id });
+  return await client.post(`${base_url}pekerjaan/finish/${id}` );
 }
 
 async function undoneTaskApi(id){
-  return await client.post(`${base_url}pekerjaan/cancel`, { id });
+  return await client.put(`${base_url}pekerjaan/cancel/${id}`);
 }
 
 async function fetchWorkerApi() {

@@ -10,12 +10,12 @@ const {
 
 // view
 const input = document.getElementById('todo');
-const form = document.getElementById('todo-form');
+const form = document.forms[0]
 const list = document.getElementById('todo-list');
 
 form.onsubmit = (event) => {
   event.preventDefault();
-  const task = input.value;
+ 
   if (!task?.length) {
     return;
   }

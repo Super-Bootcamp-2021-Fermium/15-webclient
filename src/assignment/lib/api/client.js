@@ -20,6 +20,7 @@ async function client(endpoint, { method, body, ...customConf } = {}) {
     const response = await window.fetch(endpoint, config);
     data = await response.json();
     if (!response.ok) {
+      console.log(data) 
       throw new Error(data.statusText);
     }
 
@@ -37,8 +38,8 @@ client.post = (endpoint, body, customConf = {}) => {
   return client(endpoint, { method: 'POST', body, ...customConf });
 };
 
-client.put = (endpoint, body, customConf = {}) => {
-  return client(endpoint, { method: 'PUT', body, ...customConf });
+client.put = (endpoint,  customConf = {}) => {
+  return client(endpoint, { method: 'PUT', ...customConf });
 };
 
 client.delete = (endpoint, body, customConf = {}) => {

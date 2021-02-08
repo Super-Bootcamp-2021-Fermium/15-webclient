@@ -22,8 +22,8 @@ async function init() {
       host: 'localhost',
       port: 5432,
       username: 'postgres',
-      password: 'rizkymr',
-      database: 'sanbercode2',
+      password: 'stratosfer10110100',
+      database: 'sanbercode',
     });
     console.log('database connected');
   } catch (err) {

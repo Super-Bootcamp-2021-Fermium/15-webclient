@@ -1,16 +1,9 @@
 // setup state
-const initialState = [{
-    id : "",
-    job : "",
-    done : false,
-    cancel : false,
-    addedAt : "",
-    assignee : "",
-}];
+const initialState = [];
   
   // reduce function
   function addTask(state, action) {
-    state.push({...action.payload });
+    state.push(action.payload);
     return state;
   }
   
@@ -26,8 +19,8 @@ const initialState = [{
     return state;
   }
   
-  function loadTasks(state, action) {
-    state = action.payload;
+  function loadTasks(state, action) {    
+    state = action.payload
     return state;
   }
   
