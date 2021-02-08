@@ -9,8 +9,8 @@ const {
     fetchTasksApi,
     addTaskApi,
     doneTaskApi,
-    cancelTaskApi,
-} = require('../api/all-service'))
+    undoneTaskApi,
+} = require('../api/all-service')
 
 const addTaskAsync = (task) => async(dispatch, getState) => {
     const taskData = await addTaskApi(task)
@@ -24,7 +24,7 @@ const getTasksAsync = () => async(dispatch, getState) => {
  
 
 const cancelTaskAsync = (id) => async(dispatch, getState) => {
-    const taskId = await cancelTaskApi(id)
+    const taskId = await undoneTaskApi(id)
     dispatch(cancelAction(taskId))
 }  
 
