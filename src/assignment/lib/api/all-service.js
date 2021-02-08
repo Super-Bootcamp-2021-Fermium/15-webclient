@@ -17,10 +17,45 @@ async function doneTaskApi(id) {
 async function undoneTaskApi(id){
   return await client.post(`${base_url}pekerjaan/cancel`, { id });
 }
+
+async function fetchWorkerApi() {
+  return await client.get(`${base_url}pekerja/list`);
+}
+
+async function addWorkerApi(worker) {
+  return await client.post(`${base_url}pekerja/add`, { worker });
+}
+
+async function deleteWorkerApi(id) {
+  return await client.delete(`${base_url}pekerja/delete${id}`);
+}
+
+async function fetchAllWorkerApi() {
+  return await client.get(`${base_url}jumlah/pekerja`);
+}
+
+async function fetchAllTaskApi() {
+  return await client.get(`${base_url}jumlah/pekerjaan`);
+}
+
+async function fetchDoneTaskApi() {
+  return await client.get(`${base_url}jumlah/done`);
+}
+
+async function fetchCancelledTaskApi() {
+  return await client.get(`${base_url}jumlah/cancel`);
+}
  
 module.exports = {
   fetchTasksApi,
   addTaskApi,
   doneTaskApi,
   undoneTaskApi,
+  fetchWorkerApi,
+  addWorkerApi,
+  deleteWorkerApi,
+  fetchAllTaskApi,
+  fetchAllWorkerApi,
+  fetchDoneTaskApi,
+  fetchCancelledTaskApi
 };

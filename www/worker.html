@@ -1,13 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Worker</title>
-  </head>
-  <body>
-      
-  </body>
+</head>
 
-  <script type="text/javascript" src="./worker.js"></script>
+<body>
+    <div class="container">
+        <h1>Data Pekerja</h1>
+
+        <button class="btn">
+            Tambah Baru
+        </button>
+
+        <table>
+            <tr>
+                <th class="title">Nama</th>
+                <th class="title">Alamat</th>
+                <th class="title">Email</th>
+                <th class="title">Telepon</th>
+                <th class="title">Action</th>
+            </tr>
+            <tr>
+                <td>Alfreds Futterkiste</td>
+                <td>Maria Anders</td>
+                <td>Germany</td>
+                <td>Germany</td>
+                <td class="act">
+                    <button class="btnDel" href="#">
+                        Hapus
+                    </button>
+                    <button class="btnDtl" href="#">
+                        Detail
+                    </button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+<script type="text/javascript" src="./worker.js"></script>
+
 </html>
