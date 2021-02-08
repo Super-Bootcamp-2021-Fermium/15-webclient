@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 require('./app.css');
 const { store$ } = require('./store');
 const {

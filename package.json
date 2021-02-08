@@ -4,6 +4,7 @@
   "description": "webclient with redux async logic & data fetching",
   "main": "index.js",
   "scripts": {
+    "start": "node .",
     "build": "webpack --mode production",
     "dev": "webpack serve --open --mode development",
     "lint": "eslint .",
@@ -30,6 +31,12 @@
     "pg-hstore": "^2.3.3",
     "redux-thunk": "^2.3.0",
     "rxjs": "^6.6.3",
-    "typeorm": "^0.2.30"
+    "typeorm": "^0.2.30",
+    "busboy": "^0.3.1",
+    "mime-types": "^2.1.28",
+    "minio": "^7.0.18",
+    "mysql": "^2.18.1",
+    "nats": "^1.4.12",
+    "redis": "^3.0.2"
   }
 }
