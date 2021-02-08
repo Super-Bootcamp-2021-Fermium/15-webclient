@@ -15,7 +15,7 @@ async function writeWorker(data) {
   const worker = getConnection().getRepository('Worker');
   const create = worker.create(data);
   await worker.save(create);
-  return 'data pekerja berhasil disimpan.';
+  return JSON.stringify(create);
 }
 
 async function readWorker() {

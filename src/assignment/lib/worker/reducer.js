@@ -5,7 +5,13 @@ function loadWorker(state, action) {
     return state;
 }
 
+function addWorker(state, action) {
+    state.push(action.payload);
+    return state;
+}
+
 module.exports = {
     initialState,
-    loadWorker
+    loadWorker,
+    addWorker
 }

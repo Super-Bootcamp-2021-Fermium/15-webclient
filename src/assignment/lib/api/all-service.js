@@ -23,7 +23,8 @@ async function fetchWorkerApi() {
 }
 
 async function addWorkerApi(worker) {
-  return await client.post(`${base_url}pekerja/add`, { worker });
+  const headers = { 'Content-Type': 'multipart/form-data' }
+  return await client.post(`${base_url}pekerja/add`, worker, { headers });
 }
 
 async function deleteWorkerApi(id) {
