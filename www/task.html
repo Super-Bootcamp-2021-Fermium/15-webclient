@@ -5,7 +5,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Task</title>
   </head>
-  <body></body>
+  <body>
+    <div>
+      <h4>Add new task</h4>
+      <form action="" id="task-form">
+        <input name="assignee" id="assignee" type="text" placeholder="input worker id">
+        <input name="job" id="job" type="text" placeholder="input job">
 
+        <input name="attachment" id="attachment" type="file" placeholder="input worker id">
+        <input type="submit">
+      </form>
+      
+    </div>
+    <div>
+    <h4>Task List</h4>
+    <ol id="task-list"></ol>
+    </div>
+  </body>
   <script type="text/javascript" src="./task.js"></script>
 </html>

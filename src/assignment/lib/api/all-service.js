@@ -14,7 +14,7 @@ async function doneTaskApi(id) {
   return await client.post(`${base_url}pekerjaan/finish`, { id });
 }
 
-async function undoneTaskApi(id){
+async function cancelTaskApi(id){
   return await client.post(`${base_url}pekerjaan/cancel`, { id });
 }
  
@@ -22,5 +22,5 @@ module.exports = {
   fetchTasksApi,
   addTaskApi,
   doneTaskApi,
-  undoneTaskApi,
+  cancelTaskApi,
 };
