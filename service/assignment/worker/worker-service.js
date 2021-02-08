@@ -82,11 +82,8 @@ async function deleteWorkerService(req, res) {
     res.end();
   }
 
-  await deleteWorker(id);
-  const r = {
-    status: 'success',
-  };
-  res.write(JSON.stringify(r));
+  const stat = await deleteWorker(id);
+  res.write(JSON.stringify(stat, null, 4));
   res.statusCode = 200;
   res.end();
 }

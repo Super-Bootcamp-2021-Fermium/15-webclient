@@ -1,10 +1,6 @@
 /* eslint-disable no-undef */
 async function client(endpoint, { method, body, ...customConf } = {}) {
-  let headers;
-
-  if(!customConf.headers) {
-    headers = { 'Content-Type': 'application/json' };
-  }
+  let headers = {};
 
   const config = {
     method,
@@ -18,9 +14,7 @@ async function client(endpoint, { method, body, ...customConf } = {}) {
   
   if (config.headers['Content-Type'] == 'application/json') {
     config.body = JSON.stringify(body);
-  }
-  
-  else if (config.headers['Content-Type'] == 'multipart/form-data' ){
+  } else {
     config.body = body;
     config.headers = {};
   }
