@@ -1,22 +1,29 @@
 // setup state
 const initialState = [
-  { task: "main", done: false },
-  { task: "minum", done: true },
+  { id: 1, task: 'main', done: false },
+  { id: 2, task: 'minum', done: true },
 ];
 
 // reduce function
 function add(state, action) {
-  state.push({ task: action.payload, done: false });
+  state.push({ id: action.payload.id, task: action.payload.task, done: false });
   return state;
 }
 
 function done(state, action) {
-  state[action.payload].done = true;
+  const task = state.find((t) => t.id === action.payload);
+  task.done = true;
   return state;
 }
 
 function undone(state, action) {
-  state[action.payload].done = false;
+  const task = state.find((t) => t.id === action.payload);
+  task.done = false;
+  return state;
+}
+
+function loadTasks(state, action) {
+  state = action.payload;
   return state;
 }
 
@@ -25,4 +32,5 @@ module.exports = {
   add,
   done,
   undone,
+  loadTasks,
 };

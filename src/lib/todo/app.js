@@ -1,10 +1,16 @@
-require("./app.css");
-const { store$, addAction, doneAction, undoneAction } = require("./store");
+require('./app.css');
+const { store$ } = require('./store');
+const {
+  addTaskAsync,
+  loadTasksAsync,
+  doneTaskAsync,
+  undoneTaskAsync,
+} = require('./todo-client');
 
 // view
-const input = document.getElementById("todo");
-const form = document.getElementById("todo-form");
-const list = document.getElementById("todo-list");
+const input = document.getElementById('todo');
+const form = document.getElementById('todo-form');
+const list = document.getElementById('todo-list');
 
 form.onsubmit = (event) => {
   event.preventDefault();
@@ -13,8 +19,8 @@ form.onsubmit = (event) => {
     return;
   }
   // dispatch action add
-  store$.dispatch(addAction(task));
-  input.value = "";
+  store$.dispatch(addTaskAsync(task));
+  input.value = '';
 };
 
 // presentation layer
@@ -25,23 +31,25 @@ store$.subscribe(() => {
 const state = store$.getState();
 render(state);
 
+store$.dispatch(loadTasksAsync);
+
 function render(state) {
-  list.innerHTML = "";
+  list.innerHTML = '';
   for (let i = 0; i < state.length; i++) {
     const todo = state[i];
-    const li = document.createElement("li");
+    const li = document.createElement('li');
     li.textContent = todo.task;
     if (todo.done) {
-      li.className = "todo-done";
+      li.className = 'todo-done';
       li.onclick = function () {
         // dispatch action done
-        store$.dispatch(undoneAction(i));
+        store$.dispatch(undoneTaskAsync(todo.id));
       };
     } else {
-      li.className = "";
+      li.className = '';
       li.onclick = function () {
         // dispatch action done
-        store$.dispatch(doneAction(i));
+        store$.dispatch(doneTaskAsync(todo.id));
       };
     }
     list.append(li);
