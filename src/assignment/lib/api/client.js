@@ -51,8 +51,8 @@ client.put = (endpoint, body, customConf = {}) => {
   return client(endpoint, { method: 'PUT', body, ...customConf });
 };
 
-client.delete = (endpoint, body, customConf = {}) => {
-  return client(endpoint, { method: 'DELETE', body, ...customConf });
+client.delete = (endpoint, customConf = {}) => {
+  return client(endpoint, { method: 'DELETE', ...customConf });
 };
 
 module.exports = { client };

@@ -1,6 +1,6 @@
 require('./app.css');
 const { store$ } = require('./store');
-const { loadWorkerAsync, addWorkerAsync } = require('./worker-client');
+const { loadWorkerAsync, addWorkerAsync, deleteWorkerAsync } = require('./worker-client');
 
 let formData = new FormData();
 
@@ -66,6 +66,7 @@ function submit(event) {
 
 function render(state) {
     const table = document.querySelector('#table');
+    const modal = document.getElementById('myModal');
 
     for (let i = 0; i < state.length; i++) {
         const row = document.createElement('tr');
@@ -91,10 +92,16 @@ function render(state) {
         btnDtl.innerText = 'Detail';
         btnDtl.id = `detail-${state[i].id}`;
         btnDtl.className = 'btnDtl';
+        btnDtl.onclick = function () {
+            modal.style.display = 'block';
+        };
 
         btnDel.innerText = 'Hapus';
         btnDel.id = `del-${state[i].id}`;
         btnDel.className = 'btnDel';
+        btnDel.onclick = function() {
+            store$.dispatch(deleteWorkerAsync(state[i].id));
+        }
 
         act.append(btnDtl);
         act.append(btnDel);
@@ -116,9 +123,9 @@ function main() {
         render(state);
     });
 
+    store$.dispatch(loadWorkerAsync);
     const state = store$.getState();
     render(state);
-    store$.dispatch(loadWorkerAsync);
 }
 
 main()

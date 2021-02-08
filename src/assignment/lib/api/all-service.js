@@ -28,7 +28,7 @@ async function addWorkerApi(worker) {
 }
 
 async function deleteWorkerApi(id) {
-  return await client.delete(`${base_url}pekerja/delete${id}`);
+  return await client.delete(`${base_url}pekerja/delete/${id}`);
 }
 
 async function fetchAllWorkerApi() {

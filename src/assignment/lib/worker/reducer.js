@@ -10,8 +10,16 @@ function addWorker(state, action) {
     return state;
 }
 
+function removeWorker(state, action) {
+    const worker = state.find((w) => w.id === action.payload);
+    const i = state.indexOf(worker);
+    state.splice(i, 1);
+    return state;
+}
+
 module.exports = {
     initialState,
     loadWorker,
-    addWorker
+    addWorker,
+    removeWorker,
 }
