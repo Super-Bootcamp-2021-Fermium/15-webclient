@@ -7,11 +7,11 @@ async function fetchTasksApi() {
 }
 
 async function addTaskApi(task) {
-  return await client.post(`${base_url}pekerjaan/add`, { task });
+  return await client.post(`${base_url}pekerjaan/add`, task);
 }
 
 async function doneTaskApi(id) {
-  return await client.post(`${base_url}pekerjaan/finish/${id}` );
+  return await client.put(`${base_url}pekerjaan/finish/${id}` );
 }
 
 async function undoneTaskApi(id){
@@ -23,11 +23,11 @@ async function fetchWorkerApi() {
 }
 
 async function addWorkerApi(worker) {
-  return await client.post(`${base_url}pekerja/add`, { worker });
+  return await client.post(`${base_url}pekerja/add`, worker);
 }
 
 async function deleteWorkerApi(id) {
-  return await client.delete(`${base_url}pekerja/delete${id}`);
+  return await client.delete(`${base_url}pekerja/delete/${id}`);
 }
 
 async function fetchAllWorkerApi() {

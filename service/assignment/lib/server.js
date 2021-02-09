@@ -61,7 +61,7 @@ const server = createServer((req, res) => {
         respond();
       }
       break;
-    case /^\/pekerjaan\/delete\/\w+/.test(uri.pathname):
+    case /^\/pekerja\/delete\/\w+/.test(uri.pathname):
       if (method === 'DELETE') {
         deleteWorkerService(req, res);
       } else {

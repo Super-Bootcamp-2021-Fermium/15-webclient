@@ -82,8 +82,8 @@ async function deleteWorkerService(req, res) {
     res.end();
   }
 
-  await deleteWorker(id);
-  res.write(`data pekerja dengan id ${id} telah dihapus.`);
+  const stat = await deleteWorker(id);
+  res.write(JSON.stringify(stat, null, 4));
   res.statusCode = 200;
   res.end();
 }

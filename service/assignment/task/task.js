@@ -2,13 +2,17 @@ const { getConnection } = require('typeorm');
 
 async function writeTask(data) {
   if (!data.job || !data.assignee) {
-    return 'data pekerjaan tidak lengkap';
+    const r = {
+      status: 'failed',
+      message: 'data pekerjaan tidak lengkap',
+    };
+    return JSON.stringify(r, null, 4);
   }
 
   const task = getConnection().getRepository('Task');
   const create = task.create(data);
   await task.save(create);
-  return 'data pekerjaan berhasil disimpan.';
+  return JSON.stringify(create, null, 4);
 }
 
 async function readTask() {
@@ -35,8 +39,8 @@ async function readTaskCancelled() {
   return JSON.stringify(jobs);
 }
 
-async function updateTask(data,id) {
-  await getConnection()
+async function updateTask(data, id) {
+  return await getConnection()
     .createQueryBuilder()
     .update('Task')
     .set(data)
