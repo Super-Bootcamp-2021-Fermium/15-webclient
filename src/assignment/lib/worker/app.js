@@ -105,7 +105,6 @@ function render(state) {
 
         act.append(btnDtl);
         act.append(btnDel);
-
         row.append(name);
         row.append(alamat);
         row.append(email);

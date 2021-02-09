@@ -9,6 +9,7 @@ const initialState = [];
   
   function taskDone(state, action) {
     const task = state.find((t) => t.id === action.payload);
+    console.log(task)
     task.done = true;
     return state;
   }

@@ -83,10 +83,10 @@ async function finishTaskService(req, res){
     res.write('request tidak sesuai');
     res.end();
   }
-  await updateTask(data = {done: false }, id);
+  await updateTask(data = {done : true }, id);
   const response = await readTask()
   res.setHeader('Content-Type', 'application/json');
-  res.write('done');
+  res.write(JSON.parse(response));
   res.statusCode = 200;
   res.end();
 }
@@ -99,10 +99,10 @@ async function cancelTaskService(req, res) {
     res.write('request tidak sesuai');
     res.end();
   }
-  await updateTask(data = {cancel: false }, id);
-  const response = await readTask()
+  await updateTask(data = {cancel: true }, id);
+  const response = await readTask()  
   res.setHeader('Content-Type', 'application/json');
-  res.write('canceled');
+  res.write(JSON.stringify(response));
   res.statusCode = 200;
   res.end();
 }

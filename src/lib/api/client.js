@@ -1,5 +1,5 @@
 async function client(endpoint, { method, body, ...customConf } = {}) {
-  const headers = { 'Content-Type': 'application/json' };
+  const headers = { 'Content-Type': 'application/json', 'Accept': 'application/json'};
 
   const config = {
     method,
@@ -7,7 +7,9 @@ async function client(endpoint, { method, body, ...customConf } = {}) {
     headers: {
       ...headers,
       ...customConf.headers,
+      
     },
+    
   };
 
   if (body) {

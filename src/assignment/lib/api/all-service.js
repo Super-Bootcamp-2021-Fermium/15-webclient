@@ -7,7 +7,8 @@ async function fetchTasksApi() {
 }
 
 async function addTaskApi(task) {
-  return await client.post(`${base_url}pekerjaan/add`, { task });
+  const headers = { 'Content-Type': 'multipart/form-data' }
+  return await client.post(`${base_url}pekerjaan/add`, task , {headers});
 }
 
 async function doneTaskApi(id) {

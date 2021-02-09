@@ -9,12 +9,32 @@ const { fromEvent } = require('rxjs');
 const { map } = require('rxjs/operators');
 
 const taskList = document.getElementById('task-list');
-const form = document.forms[0];
+const formElems = document.forms[0].elements;
+const form = document.querySelector('#task-form')
+const formData = new FormData()
 
-store$.subscribe(() => {
-  const state = store$.getState();
-  render(state);
-});
+function formHandle(){
+  const form = document.querySelector('#task-form')
+  const attachment = document.getElementsByName("attachment")[0]
+  attachment.onchange = chooseFile
+  form.onsubmit = formSubmit
+}
+
+function chooseFile(event) {
+  let file = event.target.files[0]
+  formData.append('attachment', file)
+}
+
+function formSubmit(event){
+event.preventDefault()
+formData.append('assignee', formElems.assignee.value)
+formData.append('job', formElems.job.value)
+formData.append('done', false)
+formData.append('cancel', false)
+store$.dispatch(addTaskAsync(formData))
+form.reset()
+}
+
 
 function render(state) {
   taskList.innerHTML = '';
@@ -22,7 +42,12 @@ function render(state) {
     const done = (state[i].done) === true ? 'done' : 'undone';
     const cancel = (state[i].cancel) === true ? 'canceled' : 'available';
     const row = document.createElement('tr');
-
+    const doneBtn = document.createElement('button')
+    doneBtn.innerText = 'done'
+    doneBtn.onclick = () => store$.dispatch(doneTaskAsync(state[i].id))
+    const cancelBtn = document.createElement('button')
+    cancelBtn.innerText = 'cancel'
+    cancelBtn.onclick = () => store$.dispatch(cancelTaskAsync(state[i].id))
     row.innerHTML = `
       <td>${state[i].id}</td>
       <td>${state[i].assignee.name}</td>
@@ -30,28 +55,22 @@ function render(state) {
       <td>${done}</td>
       <td>${cancel}</td>
       <td class="action">          
-      <button id="${state[i].id}" onclick="()=>store$.dispatch(cancelTaskAsync(this.id))">
-        Cancel
-      </button>
-      <button id="${state[i].id}" class="button-done">
-        Done
-      </button>
       </td>
       `;
+    row.lastElementChild.append(cancelBtn)
+    row.lastElementChild.append(doneBtn)
     taskList.append(row);
   }
-  const cancelBtn = document.querySelectorAll('.button-cancel');
-  const doneBtn = document.querySelectorAll('.button-done');
-  cancelBtn$ = fromEvent(cancelBtn, 'click').pipe(
-    map((event) => event.target.id)
-  );
-  doneBtn$ = fromEvent(doneBtn, 'click').pipe(map((event) => event.target.id));
-  cancelBtn$.subscribe((val) =>
-    store$.dispatch(cancelTaskAsync(val.toString()))
-  );
-  doneBtn$.subscribe((val) => store$.dispatch(doneTaskAsync(val.toString())));
 }
 
-const state = store$.getState();
-render(state);
-store$.dispatch(getTasksAsync());
+function main() {
+  formHandle()
+  store$.subscribe(() => {
+      const state = store$.getState();
+      render(state);
+  });
+  store$.dispatch(getTasksAsync());
+  const state = store$.getState();
+  render(state);
+}
+main()

@@ -23,6 +23,7 @@ const getTasksAsync = () => async(dispatch, getState) => {
 }  
  
 const cancelTaskAsync = (id) => async (dispatch, getState) => {
+    console.log(id)
     const taskId = await undoneTaskApi(id)    
     await dispatch(cancelAction(taskId))
 }
