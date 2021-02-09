@@ -1,41 +1,23 @@
 // setup state
-const initialState = [
-  {task : 0, cancelled : 0, done : 0, worker : 0}
-];
+const initialState = {task : 0, cancelled : 0, done : 0, worker : 0};
 function loadTasks(state, action) {
-  return{
-        ...state,
-        task: action.payload.task
-		}
-  // state = action.payload;
-  // return state;
+  state.task = action.payload.task
+  return state;
 }
 
 function loadCancelled(state, action) {
-  // state = action.payload;
-  // return state;
-  return{
-        ...state,
-        cancelled: action.payload.cancelled
-		}
+  state.cancelled = action.payload.cancelled
+  return state;
 }
 
 function loadFinished(state, action) {
-  // state = action.payload;
-  // return state;
-  return{
-        ...state,
-        done: action.payload.done
-		}
+  state.done = action.payload.done
+  return state;
 }
 
 function loadWorkers(state, action) {
-  // state = action.payload;
-  // return state;
-  return{
-        ...state,
-        worker: action.payload.worker
-		}
+  state.worker = action.payload.worker
+  return state;
 }
 
 module.exports = {
@@ -43,4 +25,5 @@ module.exports = {
   loadTasks,
   loadFinished,
   loadWorkers,
+  initialState,
 };

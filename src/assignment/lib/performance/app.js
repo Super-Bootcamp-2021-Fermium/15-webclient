@@ -21,15 +21,14 @@ store$.subscribe(() => {
 const state = store$.getState();
 render(state);
 
-store$.dispatch(getAllTasksAsync());
-store$.dispatch(getAllWorkerAsync());
-store$.dispatch(getDoneTaskAsync());
-store$.dispatch(getCancelledTaskAsync());
+store$.dispatch(getAllTasksAsync);
+store$.dispatch(getAllWorkerAsync);
+store$.dispatch(getDoneTaskAsync);
+store$.dispatch(getCancelledTaskAsync);
 
 function render(state) {
-    const info = state[0];
+    const info = state;
     infoSelesai.innerText = info.done;
-    console.log('state : ', state)
     infoBatal.innerText = info.cancelled;
     infoBelumSelesai.innerText = info.task;
     infoJumlahPekerja.innerText = info.worker;
