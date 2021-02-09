@@ -16,8 +16,8 @@ async function saveFile(file, mimetype, fieldname) {
     endPoint: '127.0.0.1',
     port: 9000,
     useSSL: false,
-    accessKey: 'fauzan',
-    secretKey: 'miniofauzan',
+    accessKey: 'minioadmin',
+    secretKey: 'minioadmin',
   });
   const filename = randomFileName(mimetype);
 
