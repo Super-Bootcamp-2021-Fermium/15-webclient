@@ -2,6 +2,7 @@ require('./app.css');
 const { store$ } = require('./store');
 const { loadWorkerAsync, addWorkerAsync, deleteWorkerAsync } = require('./worker-client');
 
+const table = document.querySelector('#table');
 let formData = new FormData();
 
 function showModal() {
@@ -65,23 +66,23 @@ function submit(event) {
 }
 
 function render(state) {
-    const table = document.querySelector('#table');
     const modal = document.getElementById('myModal');
 
     for (let i = 0; i < state.length; i++) {
+        const worker = state[i]
         const row = document.createElement('tr');
 
         const name = document.createElement('td');
-        name.innerText = state[i].name;
+        name.innerText = worker.name;
 
         const alamat = document.createElement('td');
-        alamat.innerText = state[i].alamat;
+        alamat.innerText = worker.alamat;
 
         const email = document.createElement('td');
-        email.innerText = state[i].email;
+        email.innerText = worker.email;
 
         const telepon = document.createElement('td');
-        telepon.innerText = state[i].telepon;
+        telepon.innerText = worker.telepon;
 
         const act = document.createElement('td');
         act.className = 'act';
@@ -90,17 +91,17 @@ function render(state) {
         const btnDel = document.createElement('button');
 
         btnDtl.innerText = 'Detail';
-        btnDtl.id = `detail-${state[i].id}`;
+        btnDtl.id = `detail-${worker.id}`;
         btnDtl.className = 'btnDtl';
         btnDtl.onclick = function () {
             modal.style.display = 'block';
         };
 
         btnDel.innerText = 'Hapus';
-        btnDel.id = `del-${state[i].id}`;
+        btnDel.id = `del-${worker.id}`;
         btnDel.className = 'btnDel';
         btnDel.onclick = function() {
-            store$.dispatch(deleteWorkerAsync(state[i].id));
+            store$.dispatch(deleteWorkerAsync(worker.id));
         }
 
         act.append(btnDtl);

@@ -14,7 +14,7 @@ const {
   saveTaskDone,
   saveTaskCancelled,
 } = require('../performance/performance');
-const url = require('url')
+const url = require('url');
 
 async function addTaskService(req, res) {
   const busboy = new Busboy({ headers: req.headers });
@@ -75,7 +75,7 @@ async function addTaskService(req, res) {
   req.pipe(busboy);
 }
 
-async function finishTaskService(req, res){
+async function finishTaskService(req, res) {
   const uri = url.parse(req.url, true);
   const id = uri.pathname.replace('/pekerjaan/finish/', '');
   if (!id) {
@@ -83,11 +83,14 @@ async function finishTaskService(req, res){
     res.write('request tidak sesuai');
     res.end();
   }
-  await updateTask(data = {done : true }, id);
-  const response = await readTask()
-  res.setHeader('Content-Type', 'application/json');
-  res.write(JSON.parse(response));
+
+  const stat = await updateTask({ done: true }, id);
+  const done = JSON.parse(await readTaskDone());
+  saveTaskDone();
+  streamer('task.done', done.length.toString());
   res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.write(JSON.stringify(stat, null, 4));
   res.end();
 }
 
@@ -99,11 +102,14 @@ async function cancelTaskService(req, res) {
     res.write('request tidak sesuai');
     res.end();
   }
-  await updateTask(data = {cancel: true }, id);
-  const response = await readTask()  
-  res.setHeader('Content-Type', 'application/json');
-  res.write(JSON.stringify(response));
+  const stat = await updateTask({ cancel: true }, id);
+  const cancel = JSON.parse(await readTaskCancelled());
+  saveTaskCancelled();
+  streamer('task.cancelled', cancel.length.toString());
+
   res.statusCode = 200;
+  res.setHeader('Content-Type', 'application/json');
+  res.write(JSON.stringify(stat, null, 4));
   res.end();
 }
 
