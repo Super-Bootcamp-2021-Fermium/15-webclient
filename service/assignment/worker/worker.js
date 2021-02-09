@@ -9,13 +9,17 @@ async function writeWorker(data) {
     !data.photo ||
     !data.telepon
   ) {
-    return 'data pekerja tidak lengkap';
+    const r = {
+      status: 'failed',
+      message: 'data pekerja tidak lengkap',
+    };
+    return JSON.stringify(r, null, 4);
   }
 
   const worker = getConnection().getRepository('Worker');
   const create = worker.create(data);
   await worker.save(create);
-  return 'data pekerja berhasil disimpan.';
+  return JSON.stringify(create, null, 4);
 }
 
 async function readWorker() {
@@ -25,7 +29,7 @@ async function readWorker() {
 }
 
 async function deleteWorker(id) {
-  await getConnection()
+  return await getConnection()
     .createQueryBuilder()
     .delete()
     .from('Worker')
