@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 async function client(endpoint, { method, body, ...customConf } = {}) {
-  const headers = { 'Content-Type': 'application/json' };
+  let headers = {};
 
   const config = {
     method,
@@ -11,10 +11,14 @@ async function client(endpoint, { method, body, ...customConf } = {}) {
     },
   };
 
-  if (body) {
+  
+  if (config.headers['Content-Type'] == 'application/json') {
     config.body = JSON.stringify(body);
+  } else {
+    config.body = body;
+    config.headers = {};
   }
-
+    
   let data;
   try {
     const response = await window.fetch(endpoint, config);
@@ -41,8 +45,8 @@ client.put = (endpoint, body, customConf = {}) => {
   return client(endpoint, { method: 'PUT', body, ...customConf });
 };
 
-client.delete = (endpoint, body, customConf = {}) => {
-  return client(endpoint, { method: 'DELETE', body, ...customConf });
+client.delete = (endpoint, customConf = {}) => {
+  return client(endpoint, { method: 'DELETE', ...customConf });
 };
 
 module.exports = { client };

@@ -91,12 +91,12 @@ async function finishTaskService(req, res) {
   });
 
   busboy.on('finish', async () => {
-    await updateTask({ done: true }, id);
+    const stat = await updateTask({ done: true }, id);
     const done = JSON.parse(await readTaskDone());
     saveTaskDone();
     streamer('task.done', done.length.toString());
     res.statusCode = 200;
-    res.write(`pekerjaan dengan id ${id} berhasil diselesaikan`);
+    res.write(JSON.stringify(stat, null, 4));
     res.end();
   });
 
@@ -123,12 +123,12 @@ async function cancelTaskService(req, res) {
   });
 
   busboy.on('finish', async () => {
-    await updateTask({ cancel: true }, id);
+    const stat = await updateTask({ cancel: true }, id);
     const cancel = JSON.parse(await readTaskCancelled());
     saveTaskCancelled();
     streamer('task.cancelled', cancel.length.toString());
     res.statusCode = 200;
-    res.write(`pekerjaan ${id} telah dibatalkan`);
+    res.write(JSON.stringify(stat, null, 4));
     res.end();
   });
 
